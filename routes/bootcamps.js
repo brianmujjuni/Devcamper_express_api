@@ -1,24 +1,13 @@
 
 const express = require('express')
+const {getBootCamps,getBootCamp,createBootCamp,deleteBootCamp,updateBootCamp} = require('../controllers/bootcamps')
+
 const router = express.Router()
 
-router.get('/',(req,res)=>{
-   
-})
+router.route('/').get(getBootCamps).post(createBootCamp)
 
-router.post('/',(req,res)=>{
-   
-})
+router.route('/:id').get(getBootCamp).put(updateBootCamp).delete(deleteBootCamp)
 
-router.put('/:id',(req,res)=>{
-   
-})
-router.get('/:id',(req,res)=>{
-    
-})
 
-router.delete('/:id',(req,res)=>{
-    
-})
 
 module.exports = router

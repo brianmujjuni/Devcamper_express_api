@@ -5,7 +5,7 @@ const connectDb = async ()=>{
    
     )
 
-   console.log(`Mongo db connected:${conn.connection.host}`)
+   console.log(`Mongo db connected:${conn.connection.host}`.cyan.underline.bold)
 }
 
 module.exports = connectDb

@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 //const logger = require('./middleware/logger')
 const morgan = require('morgan')
 const colors = require('colors')
+const errorHandler = require('./middleware/error')
 
 const connectDb = require('./config/db')
 
@@ -15,10 +16,13 @@ connectDb()
 //Route files
 const bootcamps = require('./routes/bootcamps')
 
+
+
 const app = express()
 //Body parser
 app.use(express.json())
-//app.use(logger)
+//middle ware
+app.use(errorHandler)
 //Dev logging middleware
 if(process.env.NODE_ENV == 'development'){
     app.use(morgan('dev'))

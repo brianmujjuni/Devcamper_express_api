@@ -21,8 +21,7 @@ const bootcamps = require('./routes/bootcamps')
 const app = express()
 //Body parser
 app.use(express.json())
-//middle ware
-app.use(errorHandler)
+
 //Dev logging middleware
 if(process.env.NODE_ENV == 'development'){
     app.use(morgan('dev'))
@@ -30,6 +29,9 @@ if(process.env.NODE_ENV == 'development'){
 
 //Mount routers
 app.use('/api/v1/bootcamps',bootcamps)
+
+//middle ware
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 

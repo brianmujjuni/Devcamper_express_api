@@ -37,18 +37,20 @@ exports.getBootCamp = asyncHandler(
 // @desc create new bootcamps
 // @route Post /api/v1/bootcamps
 //@access Private
-exports.createBootCamp = asyncHandler(
-    async (req, res, next) => {
-
+// @desc create new bootcamps
+// @route Post /api/v1/bootcamps
+//@access Private
+exports.createBootcamp = asyncHandler(async(req,res,next)=>{
+    try{
         const bootcamp = await Bootcamp.create(req.body)
-        res.status(201).json({
-            success: true,
-            data: bootcamp
-        })
-
-
-    })
-
+        res.status(201).json({success: true,data: bootcamp})
+    }catch(err){
+        next(err)
+    }
+   
+}
+) 
+    
 // @desc update  bootcamps
 // @route Put /api/v1/bootcamps/:id
 //@access Private

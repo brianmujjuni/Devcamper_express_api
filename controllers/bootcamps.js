@@ -2,14 +2,19 @@ const Bootcamp = require('../Models/Bootcamp')
 const errorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
 const geocoder = require('../utils/geocoder')
+const { json } = require('express')
 // @desc get all bootcamps
 
 // @route Get /api/v1/bootcamps
 //@access Public
 exports.getBootCamps = asyncHandler(
     async (req, res, next) => {
+        let query
+        let queryStr = JSON.stringify(req.query)
+        queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
+        query = Bootcamp.find(JSON.parse(queryStr))
 
-        const bootcamps = await Bootcamp.find()
+        const bootcamps = await query
         res.status(200).json({
             success: true,
             count: bootcamps.length,

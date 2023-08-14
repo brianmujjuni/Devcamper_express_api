@@ -4,9 +4,11 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const colors = require('colors')
 const errorHandler = require('./middleware/error')
+const fileUpload = require('express-fileupload')
 
 const connectDb = require('./config/db')
 
+const app = express()
 
 //load env vars
 dotenv.config({path: './config/config.env'})
@@ -18,8 +20,9 @@ const bootcamps = require('./routes/bootcamps')
 const courses = require('./routes/courses')
 
 
+//file upload
+app.use(fileUpload())
 
-const app = express()
 //Body parser
 app.use(express.json())
 

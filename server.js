@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/error')
 const fileUpload = require('express-fileupload')
 
 const connectDb = require('./config/db')
+const path = require('path')
 
 const app = express()
 
@@ -23,6 +24,9 @@ const courses = require('./routes/courses')
 //file upload
 app.use(fileUpload())
 
+
+//set static folder
+app.use(express.static(path.join(__dirname, 'public')))
 //Body parser
 app.use(express.json())
 

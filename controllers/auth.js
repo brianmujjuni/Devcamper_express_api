@@ -1,5 +1,4 @@
 const User = require('../Models/User')
-const errorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
 const ErrorResponse = require('../utils/errorResponse')
 
@@ -13,14 +12,15 @@ exports.register = asyncHandler(async (req, res, next) => {
     //create use
     const user = await User.create({ name, email, password, role })
 
-    //create token 
-    const token = user.getSignedJWTToken()
+    // //create token 
+    // const token = user.getSignedJWTToken()
 
-    res.status(200).json({
-        success: true,
-        data: user,
-        token: token
-    })
+    // res.status(200).json({
+    //     success: true,
+    //     data: user,
+    //     token: token
+    // })
+    sendTokenResponse(user, 200, res)
 })
 
 //Login user
@@ -46,13 +46,15 @@ exports.login = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Invalid crendetial', 401))
     }
 
-    //create token 
-    const token = user.getSignedJWTToken()
+    // //create token 
+    // const token = user.getSignedJWTToken()
 
-    res.status(200).json({
-        success: true,
-        token: token
-    })
+    // res.status(200).json({
+    //     success: true,
+    //     token: token
+    // })
+
+    sendTokenResponse(user, 200 ,res)
 })
 
 //get token from model,create cookie and send response
@@ -63,6 +65,10 @@ const sendTokenResponse = (user,statusCode,res)=>{
      const options ={
         expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
         httpOnly: true
+     }
+
+     if(process.env.NODE_ENV === 'production'){
+        options.secure = true
      }
 
      res.status(statusCode).

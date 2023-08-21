@@ -27,13 +27,13 @@ exports.register = asyncHandler(async (req, res, next) => {
 //public 
 //api/v1/auth/login
 exports.login = asyncHandler(async (req, res, next) => {
-    const { email, password } = re.body
+    const { email, password } = req.body
     //validate email and password
     if (!email || !password) {
         return next(new ErrorResponse('Please provide a valaid email and password', 400))
     }
     //check for user
-    const user = await user.findOne({email}).select('+password')
+    const user = await User.findOne({email}).select('+password')
 
     if(!user){
         return next(new ErrorResponse('Invalid crendetial', 401))
@@ -45,4 +45,12 @@ exports.login = asyncHandler(async (req, res, next) => {
     if(!isMatch){
         return next(new ErrorResponse('Invalid crendetial', 401))
     }
+
+    //create token 
+    const token = user.getSignedJWTToken()
+
+    res.status(200).json({
+        success: true,
+        token: token
+    })
 })

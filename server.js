@@ -5,9 +5,10 @@ const morgan = require('morgan')
 const colors = require('colors')
 const errorHandler = require('./middleware/error')
 const fileUpload = require('express-fileupload')
-
+const cookirParser = require('cookie-parser')
 const connectDb = require('./config/db')
 const path = require('path')
+
 
 const app = express()
 
@@ -20,6 +21,7 @@ connectDb()
 const bootcamps = require('./routes/bootcamps')
 const courses = require('./routes/courses')
 const auth = require('./routes/auth')
+const cookieParser = require('cookie-parser')
 
 
 //file upload
@@ -30,6 +32,9 @@ app.use(fileUpload())
 app.use(express.static(path.join(__dirname, 'public')))
 //Body parser
 app.use(express.json())
+
+//cookie parser
+app.use(cookieParser())
 
 //Dev logging middleware
 if(process.env.NODE_ENV == 'development'){

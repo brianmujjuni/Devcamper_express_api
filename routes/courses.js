@@ -6,11 +6,13 @@ const advancedRequest = require('../middleware/advancedRequest')
 
 const router = express.Router({mergeParams: true})
 
+const { protect } = require('../middleware/auth')
+
 router.route('/').get(advancedRequest(Course,{
     path: 'bootcamp',
     select: 'name description'
-}),getCourses).post(addCourse)
+}),getCourses).post(protect,addCourse)
 
-router.route('/:id').get(getCourse).put(updateCorse).delete(deleteCourse)
+router.route('/:id').get(getCourse).put(protect,updateCorse).delete(protect,deleteCourse)
 
 module.exports = router

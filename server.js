@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/error')
 const fileUpload = require('express-fileupload')
 const connectDb = require('./config/db')
 const path = require('path')
+const cookieParser = require('cookie-parser')
 
 
 const app = express()
@@ -32,7 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 //Body parser
 app.use(express.json())
 
-
+//cookie parser
+app.use(cookieParser())
 
 //Dev logging middleware
 if(process.env.NODE_ENV == 'development'){

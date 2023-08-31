@@ -44,19 +44,22 @@ exports.createUsers = asyncHandler(async(req,res,next)=>{
 //@access Private/Admin
 
 exports.UpdateUser = asyncHandler(async(req,res,next)=>{
-    const user = await User.findOneAndUpdate(req.params.id,req.body,{new: true,runValidators: true})
-
-    res.status(201).json({
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+      });
+    
+      res.status(200).json({
         success: true,
         data: user
-    })
+      });
 })
 
 //@desc Delete user
 //@route Delete /api/v1/auth/users/:id
 //@access Private/Admin
 
-exports.create = asyncHandler(async(req,res,next)=>{
+exports.deleteUser = asyncHandler(async(req,res,next)=>{
     await User.findByIdAndDelete(req.params.id,req.body)
 
     res.status(201).json({
@@ -65,30 +68,30 @@ exports.create = asyncHandler(async(req,res,next)=>{
     })
 })
 
-//0750952841
+// //0750952841
 
-//@desc Update user
-//@route PUT /api/v1/auth/users/:id
-//@access Private/Admin
+// //@desc Update user
+// //@route PUT /api/v1/auth/users/:id
+// //@access Private/Admin
 
-exports.create = asyncHandler(async(req,res,next)=>{
-    const user = await User.findByIdAndUpdate(req.params.id,req.body,{new: true,runValidators:true})
+// exports.UpdateUser = asyncHandler(async(req,res,next)=>{
+//     const user = await User.findByIdAndUpdate(req.params.id,req.body,{new: true,runValidators:true})
 
-    res.status(200).json({
-        success: true,
-        data: user
-    })
-})
+//     res.status(200).json({
+//         success: true,
+//         data: user
+//     })
+// })
 
-//@desc Delete user
-//@route Delete /api/v1/auth/users/:id
-//@access Private/Admin
+// //@desc Delete user
+// //@route Delete /api/v1/auth/users/:id
+// //@access Private/Admin
 
-exports.create = asyncHandler(async(req,res,next)=>{
-    const user = await User.findByIdAndUpdate(req.params.id,req.body,{new: true,runValidators:true})
+// exports.create = asyncHandler(async(req,res,next)=>{
+//     const user = await User.findByIdAndUpdate(req.params.id,req.body,{new: true,runValidators:true})
 
-    res.status(200).json({
-        success: true,
-        data: user
-    })
-})
+//     res.status(200).json({
+//         success: true,
+//         data: user
+//     })
+// })

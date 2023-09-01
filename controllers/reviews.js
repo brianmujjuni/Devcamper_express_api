@@ -8,7 +8,7 @@ const Bootcamp = require('../Models/Bootcamp')
 //get all Review
 // GET /api/v1/reviews/
 // GET api/v1/bootcamps/:bootcampId/reviews
-exports.getReview = asyncHandler(async (req, res, next) => {
+exports.getReviews = asyncHandler(async (req, res, next) => {
 
     if (req.params.bootcampId) {
         const reviews = await Review.find({ bootcamp: req.params.bootcampId })

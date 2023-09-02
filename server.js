@@ -9,7 +9,8 @@ const connectDb = require('./config/db')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const mongoSanitize = require('express-mongo-sanitize')
-
+const helmet = require('helmet')
+const xss = require('xss-clean')
 const app = express()
 
 //load env vars
@@ -30,6 +31,11 @@ app.use(fileUpload())
 
 //Sanitize Data
 app.use(mongoSanitize())
+// Set Security headers
+app.use(helmet())
+
+//Prevent cross site scripting
+app.use(xss())
 
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')))

@@ -11,6 +11,8 @@ const cookieParser = require('cookie-parser')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const xss = require('xss-clean')
+const hpp = require('hpp')
+const ratelimit = require('express-rate-limit')
 const app = express()
 
 //load env vars
@@ -36,6 +38,13 @@ app.use(helmet())
 
 //Prevent cross site scripting
 app.use(xss())
+
+//Rate limiting
+const limiter = ratelimit({
+    windowMs: 10 * 60 * 1000, //10 mins
+    max: 1
+})
+app.use(limiter)
 
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')))

@@ -8,7 +8,7 @@ const fileUpload = require('express-fileupload')
 const connectDb = require('./config/db')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-
+const mongoSanitize = require('express-mongo-sanitize')
 
 const app = express()
 
@@ -28,6 +28,8 @@ const reviews = require('./routes/reviews')
 //file upload
 app.use(fileUpload())
 
+//Sanitize Data
+app.use(mongoSanitize())
 
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')))
